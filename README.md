@@ -2,6 +2,8 @@
 This is a docker container set for Drupal 8, based on [Dockerize Drupal](https://dockerizedrupal.com/getting-started). 
 It is assumed that you have gone through the [Getting Started](https://dockerizedrupal.com/getting-started/installation/linux/ubuntu/install-vhost) setup, and that your ```vhost``` is named ```dev```.
 
+#### Current version: Drupal 8.1.7
+
 ## Directories
 ```
 default.aliases.drushrc.php
