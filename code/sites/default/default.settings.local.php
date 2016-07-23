@@ -15,9 +15,8 @@ $databases['default']['default'] = array (
 );
 
 $settings['trusted_host_patterns'] = array(
-    '^\.dev$',
-    '^\.com$',
-    '^\.localhost$',
+    '^.+\.dev$',
+    '^.+\.com$',
+    '^.+\.localhost$',
     '^localhost$',
 );
-
