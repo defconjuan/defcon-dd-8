@@ -8,7 +8,7 @@ It is assumed that you have gone through the [Getting Started](https://dockerize
 ```
 default.aliases.drushrc.php
 backups/
---drupal-8.1.6.tar.gz
+--drupal-8.1.7.tar.gz
 code/
 --[apache webroot]
 --sites/default/files <symlinked> to ../../../files
