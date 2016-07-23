@@ -1,0 +1,121 @@
+# Configuration generated with Drupal Compose version 1.4.4
+apache:
+  extends:
+    file: host.yml
+    service: apache
+  image: dockerizedrupal/apache-2.4:1.2.4
+  hostname: apache
+  volumes_from:
+    - apache-data
+  links:
+    - php
+  environment:
+    - VHOST_PROJECT_NAME=REPLACEME
+    - VHOST_PRIMARY_SERVICE=True
+    - VHOST_SERVICE_NAME=apache
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-apache-2.4/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/apache-2.4:1.2.4
+    - NO_GZIP=On
+apache-data:
+  extends:
+    file: host.yml
+    service: apache-data
+  image: dockerizedrupal/apache-2.4:1.2.4
+  hostname: apache-data
+  entrypoint: ["/bin/echo", "Data-only container for Apache."]
+#  volumes:
+#    - .:/apache/data
+mysql:
+  image: dockerizedrupal/mysql:1.2.3
+  hostname: mysql
+  volumes_from:
+    - mysql-data
+  environment:
+    - VHOST_PROJECT_NAME=REPLACEME
+    - VHOST_SERVICE_NAME=mysql
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-mysql/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/mysql/
+mysql-data:
+  extends:
+    file: host.yml
+    service: mysql-data
+  image: dockerizedrupal/mysql:1.2.3
+  hostname: mysql-data
+  entrypoint: ["/bin/echo", "Data-only container for MySQL."]
+#  volumes:
+#    - /mysql
+php:
+  extends:
+    file: host.yml
+    service: php
+  image: dockerizedrupal/php-5.5:1.2.12
+  hostname: php
+#  volumes:
+#    - ~/.ssh:/home/container/.ssh
+  volumes_from:
+    - apache-data
+  links:
+    - mysql
+    - mailcatcher:smtp
+    - memcached
+  environment:
+    - DRUPAL_VERSION=8
+    - VHOST_PROJECT_NAME=REPLACEME
+    - VHOST_SERVICE_NAME=php
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-php-5.5/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/php-5.5:1.2.12
+mailcatcher:
+  extends:
+    file: host.yml
+    service: mailcatcher
+  image: dockerizedrupal/mailcatcher:1.1.1
+  hostname: mailcatcher
+  environment:
+    - VHOST_PROJECT_NAME=REPLACEME
+    - VHOST_SERVICE_NAME=mailcatcher
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-mailcatcher/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/mailcatcher/
+phpmyadmin:
+  extends:
+    file: host.yml
+    service: phpmyadmin
+  image: dockerizedrupal/phpmyadmin:1.1.1
+  hostname: phpmyadmin
+  links:
+    - mysql
+  environment:
+    - VHOST_PROJECT_NAME=REPLACEME
+    - VHOST_SERVICE_NAME=phpmyadmin
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-phpmyadmin/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/phpmyadmin/
+adminer:
+  extends:
+    file: host.yml
+    service: adminer
+  image: dockerizedrupal/adminer:1.1.1
+  hostname: adminer
+  links:
+    - mysql
+  environment:
+    - VHOST_PROJECT_NAME=REPLACEME
+    - VHOST_SERVICE_NAME=adminer
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-adminer/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/adminer/
+memcached:
+  image: dockerizedrupal/memcached:1.1.0
+  hostname: memcached
+  environment:
+    - VHOST_PROJECT_NAME=REPLACEME
+    - VHOST_SERVICE_NAME=memcached
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-memcached/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/memcached/
+memcachephp:
+  image: dockerizedrupal/memcachephp:1.1.1
+  hostname: memcachephp
+  links:
+    - memcached
+  environment:
+    - VHOST_PROJECT_NAME=REPLACEME
+    - VHOST_SERVICE_NAME=memcachedphp
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-memcachephp/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/memcachephp/

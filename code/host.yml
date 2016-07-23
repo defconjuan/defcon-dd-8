@@ -1,0 +1,38 @@
+# Configuration generated with Drupal Compose version 1.4.4
+apache:
+  environment:
+    - USER_ID=1000
+    - GROUP_ID=1000
+  ports:
+    - "49103:22"
+    - "8190:80"
+apache-data:
+  volumes:
+    - /containers/REPLACEME/code:/apache/data
+    - /containers/REPLACEME/files:/apache/files
+    - /containers/REPLACEME/tmp:/apache/tmp
+mysql:
+  ports:
+    - "3313:3306"
+mysql-data:
+  volumes:
+    - /containers/REPLACEME/db:/mysql
+php:
+  environment:
+    - USER_ID=1000
+    - GROUP_ID=1000
+    - PHP_INI_XDEBUG=On
+    - PHP_INI_XDEBUG_REMOTE_CONNTECT_BACK=On
+    - PHP_INI_XDEBUG_IDEKEY=PHPSTORM
+  volumes:
+    - ~/.ssh:/home/container/.ssh
+    - /containers/REPLACEME/default.aliases.drushrc.php:/home/container/.drush/default.aliases.drushrc.php
+mailcatcher:
+  ports:
+    - "8191:80"
+phpmyadmin:
+  ports:
+    - "8192:80"
+adminer:
+  ports:
+    - "8193:80"
