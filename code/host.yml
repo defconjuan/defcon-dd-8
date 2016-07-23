@@ -11,6 +11,7 @@ apache-data:
     - /containers/REPLACEME/code:/apache/data
     - /containers/REPLACEME/files:/apache/files
     - /containers/REPLACEME/tmp:/apache/tmp
+    - /containers/REPLACEME/backups:/apache/backups
 mysql:
   ports:
     - "3313:3306"
