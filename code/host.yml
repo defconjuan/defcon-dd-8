@@ -4,8 +4,7 @@ apache:
     - USER_ID=1000
     - GROUP_ID=1000
   ports:
-    - "49103:22"
-    - "8190:80"
+    - "8800:80"
 apache-data:
   volumes:
     - /containers/REPLACEME/code:/apache/data
@@ -14,7 +13,7 @@ apache-data:
     - /containers/REPLACEME/backups:/apache/backups
 mysql:
   ports:
-    - "3313:3306"
+    - "3307:3306"
 mysql-data:
   volumes:
     - /containers/REPLACEME/db:/mysql
@@ -25,15 +24,20 @@ php:
     - PHP_INI_XDEBUG=On
     - PHP_INI_XDEBUG_REMOTE_CONNTECT_BACK=On
     - PHP_INI_XDEBUG_IDEKEY=PHPSTORM
+    - PHP_INI_XDEBUG_PORT=9000
   volumes:
     - ~/.ssh:/home/container/.ssh
     - /containers/REPLACEME/default.aliases.drushrc.php:/home/container/.drush/default.aliases.drushrc.php
+    - /usr/local/src/phpfarm/inst
+  ports:
+    - "9000:9000"
+    - "49207:50022"
 mailcatcher:
   ports:
-    - "8191:80"
+    - "8801:80"
 phpmyadmin:
   ports:
-    - "8192:80"
+    - "8802:80"
 adminer:
   ports:
-    - "8193:80"
+    - "8803:80"
