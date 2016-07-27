@@ -1,1 +1,37 @@
-# gitignore
+# Sensitive information #
+#########################
+# Ignore configuration files that may contain sensitive information.
+# sites/*/settings*.php # removed, sensitive info should be moved to settings.local.php
+*.local.php
+!code/sites/default.settings.local.php
+
+# User Generated Content #
+##########################
+code/files
+code/sites/*/files
+code/sites/*/private
+
+# IDEs #
+########
+.idea
+code/.idea
+
+# Vagrant Files #
+#################
+.vagrant
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon\?
+Thumbs.db
