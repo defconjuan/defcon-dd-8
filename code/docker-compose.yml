@@ -51,7 +51,7 @@ php:
   extends:
     file: host.yml
     service: php
-  image: defconjuan/docker-php-5.5:1.2.12.6
+  image: defconjuan/docker-php-5.5:latest
   hostname: php
 #  volumes:
 #    - ~/.ssh:/home/container/.ssh
